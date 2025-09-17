@@ -117,12 +117,20 @@ export const useWebSocket = ({
       };
 
       ws.current.onerror = (event) => {
-        // Only set error if we have meaningful error information
-        if (event.type === 'error' && ws.current?.readyState === WebSocket.CLOSED) {
-          setError('WebSocket connection failed');
-          console.error('WebSocket error:', event);
-          console.error('WebSocket URL:', url);
-          console.error('WebSocket readyState:', ws.current?.readyState);
+        console.log('WebSocket error event:', event);
+        
+        // Only set meaningful error messages
+        if (event.type === 'error') {
+          if (ws.current?.readyState === WebSocket.CLOSED) {
+            setError('WebSocket connection failed - server may be unavailable');
+            console.error('WebSocket connection failed. Server may be down or unreachable.');
+            console.error('WebSocket URL:', url);
+          } else if (ws.current?.readyState === WebSocket.CONNECTING) {
+            setError('WebSocket connection timeout');
+            console.error('WebSocket connection timeout.');
+          } else {
+            console.log('WebSocket error during active connection (may be temporary)');
+          }
         }
       };
     } catch (err) {

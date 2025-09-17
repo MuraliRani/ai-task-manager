@@ -13,9 +13,9 @@ interface TaskItemProps {
 }
 
 const priorityColors = {
-  low: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
-  medium: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300',
-  high: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
+  low: 'bg-green-100 text-green-800',
+  medium: 'bg-yellow-100 text-yellow-800',
+  high: 'bg-red-100 text-red-800',
 };
 
 export const TaskItem: React.FC<TaskItemProps> = ({
@@ -46,7 +46,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({
 
   return (
     <div className={`
-      bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 
+      bg-white rounded-lg border border-gray-200 p-4 
       hover:shadow-md transition-shadow duration-200
       ${task.completed ? 'opacity-75' : ''}
     `}>
@@ -68,15 +68,15 @@ export const TaskItem: React.FC<TaskItemProps> = ({
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <h3 className={`
-                text-lg font-medium text-gray-900 dark:text-gray-100
-                ${task.completed ? 'line-through text-gray-500 dark:text-gray-400' : ''}
+                text-lg font-medium text-gray-900
+                ${task.completed ? 'line-through text-gray-500' : ''}
               `}>
                 {task.title}
               </h3>
               
               {task.description && (
                 <p className={`
-                  mt-1 text-sm text-gray-600 dark:text-gray-300
+                  mt-1 text-sm text-gray-600
                   ${task.completed ? 'line-through' : ''}
                 `}>
                   {task.description}
@@ -115,7 +115,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({
 
             {/* Category */}
             {task.category && (
-              <div className="flex items-center text-gray-500 dark:text-gray-400">
+              <div className="flex items-center text-gray-500">
                 <Tag className="w-4 h-4 mr-1" />
                 <span>{task.category}</span>
               </div>
@@ -123,14 +123,14 @@ export const TaskItem: React.FC<TaskItemProps> = ({
 
             {/* Due Date */}
             {task.due_date && (
-              <div className="flex items-center text-gray-500 dark:text-gray-400">
+              <div className="flex items-center text-gray-500">
                 <Calendar className="w-4 h-4 mr-1" />
                 <span>{formatDate(task.due_date)}</span>
               </div>
             )}
 
             {/* Created Date */}
-            <div className="flex items-center text-gray-400 dark:text-gray-500">
+            <div className="flex items-center text-gray-400">
               <span className="text-xs">
                 Created {formatDate(task.created_at)}
               </span>

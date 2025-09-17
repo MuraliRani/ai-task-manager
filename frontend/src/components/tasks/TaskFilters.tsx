@@ -42,7 +42,7 @@ export const TaskFilters: React.FC<TaskFiltersProps> = ({
       <div className="flex items-center space-x-4">
         <div className="flex items-center space-x-2">
           <Filter className="w-4 h-4 text-gray-500" />
-          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          <span className="text-sm font-medium text-gray-700">
             Filters:
           </span>
         </div>
@@ -54,7 +54,7 @@ export const TaskFilters: React.FC<TaskFiltersProps> = ({
             const value = e.target.value;
             handleFilterChange('completed', value === '' ? undefined : value === 'true');
           }}
-          className="text-sm border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="text-sm border border-gray-300 rounded-md px-3 py-1 bg-white text-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500"
         >
           <option value="">All Tasks</option>
           <option value="false">Incomplete</option>
@@ -65,7 +65,7 @@ export const TaskFilters: React.FC<TaskFiltersProps> = ({
         <select
           value={filters.priority || ''}
           onChange={(e) => handleFilterChange('priority', e.target.value || undefined)}
-          className="text-sm border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="text-sm border border-gray-300 rounded-md px-3 py-1 bg-white text-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500"
         >
           <option value="">All Priorities</option>
           <option value="high">High Priority</option>
@@ -78,7 +78,7 @@ export const TaskFilters: React.FC<TaskFiltersProps> = ({
           <select
             value={filters.category || ''}
             onChange={(e) => handleFilterChange('category', e.target.value || undefined)}
-            className="text-sm border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="text-sm border border-gray-300 rounded-md px-3 py-1 bg-white text-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500"
           >
             <option value="">All Categories</option>
             {uniqueCategories.map((category) => (
@@ -119,11 +119,11 @@ export const TaskFilters: React.FC<TaskFiltersProps> = ({
             )}
             
             {filters.priority && (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300">
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
                 {filters.priority.charAt(0).toUpperCase() + filters.priority.slice(1)} Priority
                 <button
                   onClick={() => handleFilterChange('priority', undefined)}
-                  className="ml-1 hover:text-purple-600 dark:hover:text-purple-200"
+                  className="ml-1 hover:text-purple-600"
                 >
                   <X className="w-3 h-3" />
                 </button>
@@ -131,11 +131,11 @@ export const TaskFilters: React.FC<TaskFiltersProps> = ({
             )}
             
             {filters.category && (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
                 {filters.category}
                 <button
                   onClick={() => handleFilterChange('category', undefined)}
-                  className="ml-1 hover:text-green-600 dark:hover:text-green-200"
+                  className="ml-1 hover:text-green-600"
                 >
                   <X className="w-3 h-3" />
                 </button>
