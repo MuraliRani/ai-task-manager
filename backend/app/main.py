@@ -37,11 +37,6 @@ async def root():
         "docs": "/docs"
     }
 
-@app.get("/health")
-async def health():
-    """Health check endpoint"""
-    return {"status": "healthy"}
-
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(

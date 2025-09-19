@@ -1,5 +1,4 @@
 from sqlalchemy.orm import Session
-from sqlalchemy.orm import Session
 from app.models.task import Task
 from app.schemas.task import TaskCreate, TaskUpdate, TaskFilter
 from typing import List, Optional

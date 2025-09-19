@@ -1,9 +1,7 @@
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Depends, HTTPException
-from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List, Optional
 import json
-import asyncio
 from datetime import datetime
 
 from app.db.session import get_db
@@ -189,31 +187,6 @@ async def websocket_endpoint(websocket: WebSocket):
         manager.disconnect(websocket)
     except Exception as e:
         print(f"WebSocket error: {e}")
-        manager.disconnect(websocket)
-
-@router.websocket("/ws/tasks")
-async def task_updates_websocket(websocket: WebSocket):
-    """WebSocket endpoint specifically for task updates"""
-    await manager.connect(websocket)
-    try:
-        while True:
-            # Send periodic task list updates
-            await asyncio.sleep(30)  # Send updates every 30 seconds
-            
-            # Get current tasks (you could add more sophisticated change detection)
-            task_service = TaskService(next(get_db()))
-            tasks = task_service.get_tasks(limit=1000)
-            
-            await manager.send_personal_message(json.dumps({
-                "type": "task_list_update",
-                "tasks": [task.to_dict() for task in tasks],
-                "timestamp": datetime.utcnow().isoformat()
-            }), websocket)
-            
-    except WebSocketDisconnect:
-        manager.disconnect(websocket)
-    except Exception as e:
-        print(f"Task WebSocket error: {e}")
         manager.disconnect(websocket)
 
 # Health check endpoint
