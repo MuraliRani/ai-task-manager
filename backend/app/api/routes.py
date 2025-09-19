@@ -168,11 +168,12 @@ async def websocket_endpoint(websocket: WebSocket):
                     "timestamp": datetime.utcnow().isoformat()
                 }), websocket)
                 
-                # If tasks were updated, broadcast to all clients
+                # If a task was created, broadcast the new task creation
                 if result.get("tasks_updated") and result.get("task_data"):
+                    # Send individual task created event
                     await manager.broadcast(json.dumps({
-                        "type": "tasks_updated",
-                        "data": result["task_data"],
+                        "type": "task_created",
+                        "task": result["task_data"],
                         "timestamp": datetime.utcnow().isoformat()
                     }))
             

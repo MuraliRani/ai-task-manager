@@ -35,12 +35,17 @@ export default function Home() {
   }, []);
 
   const handleTaskCreate = useCallback((task: Task) => {
+    console.log('handleTaskCreate called with task:', task);
     setTasks(prevTasks => {
       // Check if task already exists to prevent duplicates
       const exists = prevTasks.some(t => t.id === task.id);
+      console.log('Task exists?', exists, 'Current tasks:', prevTasks.length);
       if (!exists) {
-        return [task, ...prevTasks];
+        const newTasks = [task, ...prevTasks];
+        console.log('Adding new task, total will be:', newTasks.length);
+        return newTasks;
       }
+      console.log('Task already exists, not adding');
       return prevTasks;
     });
   }, []);
@@ -57,16 +62,18 @@ export default function Home() {
   const handleWebSocketMessage = useCallback((message: WebSocketMessage) => {
     console.log('WebSocket message received:', message);
     
-    // Handle bulk task list updates (avoid conflicts with individual handlers)
+    // Handle bulk task list updates ONLY if it's not during an individual task operation
     if (message.type === 'tasks_updated' && message.data) {
       if (Array.isArray(message.data)) {
-        // Only update if we have a complete task list
+        console.log('Updating task list with', message.data.length, 'tasks');
+        // Only update if we have a complete task list and it's not following a task_created event
         setTasks(prevTasks => {
           // Deduplicate tasks by ID
           const newTasks = message.data as Task[];
           const uniqueTasks = newTasks.filter((task, index, arr) => 
             arr.findIndex(t => t.id === task.id) === index
           );
+          console.log('Setting tasks to:', uniqueTasks.length, 'unique tasks');
           return uniqueTasks;
         });
       }

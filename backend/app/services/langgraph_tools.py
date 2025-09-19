@@ -1,4 +1,4 @@
-from langchain.tools import tool
+# Simple task tools without langchain dependencies
 from typing import Dict, Optional, Any
 from datetime import datetime
 from app.services.tasks import TaskService
@@ -14,7 +14,6 @@ class TaskTools:
         if self.db:
             self.db.close()
 
-@tool
 def create_task_tool(
     title: str,
     description: str = "",
@@ -65,7 +64,6 @@ def create_task_tool(
     except Exception as e:
         return {"success": False, "error": str(e)}
 
-@tool
 def update_task_tool(
     task_id: int,
     title: str = "",
@@ -133,7 +131,6 @@ def update_task_tool(
     except Exception as e:
         return {"success": False, "error": str(e)}
 
-@tool
 def delete_task_tool(task_id: int) -> Dict[str, Any]:
     """
     Delete a task.
@@ -159,7 +156,6 @@ def delete_task_tool(task_id: int) -> Dict[str, Any]:
     except Exception as e:
         return {"success": False, "error": str(e)}
 
-@tool
 def list_tasks_tool(
     completed: Optional[bool] = None,
     priority: str = "",
@@ -204,7 +200,6 @@ def list_tasks_tool(
     except Exception as e:
         return {"success": False, "error": str(e)}
 
-@tool
 def filter_tasks_tool(
     filter_type: str,
     filter_value: str = ""
